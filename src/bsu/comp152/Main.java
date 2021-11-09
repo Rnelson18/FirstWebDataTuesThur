@@ -13,7 +13,7 @@ public class Main {
     public static void main(String[] args) {
 	var dataGrabber = HttpClient.newHttpClient();
     var requestBuilder = HttpRequest.newBuilder();
-    var webURI = URI.create("http://universities.hipolabs.com/searches?name=Young");
+    var webURI = URI.create("http://universities.hipolabs.com/search?name=Young");
     var webRequest= requestBuilder.uri(webURI).build();
     HttpResponse<String> response = null;
         try{
@@ -30,8 +30,11 @@ public class Main {
         System.exit(1);
     }
     var usefulData = response.body();
+    System.out.println(usefulData);
     var dataParser = new Gson();
     UniversityDataType[] uniList = dataParser.fromJson(usefulData, UniversityDataType[].class);
-    System.out.println(usefulData);
+    for(var currentUniv: uniList){
+        System.out.println(currentUniv);
+    }
     }
 }
